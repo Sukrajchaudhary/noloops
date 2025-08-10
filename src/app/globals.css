@@ -1,12 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300..800;1,300..800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Outfit:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
+
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-work-sans);
   --font-mono: var(--font-geist-mono);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -76,6 +78,9 @@
   --sidebar-accent-foreground: oklch(0.21 0.034 264.665);
   --sidebar-border: oklch(0.928 0.006 264.531);
   --sidebar-ring: oklch(0.707 0.022 261.325);
+  
+  /* Define Work Sans font family */
+  --font-work-sans: 'Work Sans', ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 .dark {
@@ -112,11 +117,62 @@
   --sidebar-ring: oklch(0.551 0.027 264.364);
 }
 
+/* Apply Work Sans globally */
+* {
+  font-family: var(--font-work-sans);
+}
+
+/* body color and font */
+body {
+  background-color: #000000;
+  font-family: var(--font-work-sans);
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    font-family: var(--font-work-sans);
   }
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-work-sans);
   }
+}
+
+/* Text blur animation - smoother version */
+@keyframes text-focus-in {
+  0% {
+    filter: blur(12px);
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  20% {
+    filter: blur(10px);
+    opacity: 0.2;
+    transform: translateY(6px);
+  }
+  40% {
+    filter: blur(8px);
+    opacity: 0.4;
+    transform: translateY(4px);
+  }
+  60% {
+    filter: blur(6px);
+    opacity: 0.6;
+    transform: translateY(3px);
+  }
+  80% {
+    filter: blur(3px);
+    opacity: 0.8;
+    transform: translateY(1px);
+  }
+  100% {
+    filter: blur(0px);
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-text-focus-in {
+  animation: text-focus-in 1.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
 }
