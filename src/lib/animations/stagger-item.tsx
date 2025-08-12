@@ -1,6 +1,6 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { motion, easeOut } from "framer-motion"
 import type { ReactNode } from "react"
 
 interface StaggerItemProps {
@@ -33,7 +33,7 @@ export default function StaggerItem({
       opacity: 1,
       transition: {
         duration,
-        ease: "easeOut",
+        ease: easeOut,
       },
     },
   }

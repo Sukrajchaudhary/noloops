@@ -1,7 +1,8 @@
 import { loadSlim } from "tsparticles-slim";
+import type { Engine } from "tsparticles-engine";
 
 // Particle initialization function for smaller circles with random movement
-export const particlesInit = async (engine: unknown) => {
+export const particlesInit = async (engine: Engine) => {
   await loadSlim(engine);
 };
 

@@ -1,126 +1,77 @@
-"use client"; 
-import Image from "next/image";
-import React, { useState } from "react";
-import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+"use client";
 
-const PortfolioCard = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isHovered, setIsHovered] = useState(false);
-  
-  const data = [
+import React from "react";
+// Import specific components instead of the entire library
+import { motion as m } from "framer-motion";
+
+interface Project {
+  id: number;
+  title: string;
+  description: string;
+  image: string;
+  tags: string[];
+}
+
+const PortfolioCard: React.FC<{}> = () => {
+  const projects: Project[] = [
     {
-      id: "1",
-      url: "/assets/images/or.png",
+      id: 1,
+      title: "E-commerce Platform",
+      description: "A modern e-commerce solution with seamless user experience and secure payment integration.",
+      image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80",
+      tags: ["Web Development", "React", "Node.js", "MongoDB"]
     },
     {
-      id: "2",
-      url: "/assets/images/jpn.png",
+      id: 2,
+      title: "Mobile Banking App",
+      description: "Secure and intuitive mobile banking application with real-time transaction tracking.",
+      image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80",
+      tags: ["Mobile App", "React Native", "Firebase", "UI/UX"]
     },
     {
-      id: "3",
-      url: "/assets/images/p1.png",
-    },
-    {
-      id: "4",
-      url: "/assets/images/p2.png",
-    },
-    {
-      id: "5",
-      url: "/assets/images/p3.png",
-    },
+      id: 3,
+      title: "Corporate Branding",
+      description: "Complete brand identity redesign for a leading tech company in the finance sector.",
+      image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80",
+      tags: ["Branding", "Design", "Marketing"]
+    }
   ];
 
-  // Create a perfect loop by duplicating the data multiple times
-  const duplicatedData = [...data, ...data, ...data, ...data, ...data, ...data];
-
-  const handleMouseMove = (e:any) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    setMousePosition({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top
-    });
-  };
-
   return (
-    <div 
-      className="relative overflow-hidden w-full py-8 cursor-none"
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      {/* Left gradient overlay */}
-      <div className="absolute left-0 top-0 w-32 h-full bg-gradient-to-r from-black via-black/80 to-transparent z-10 pointer-events-none"></div>
-      
-      {/* Right gradient overlay */}
-      <div className="absolute right-0 top-0 w-32 h-full bg-gradient-to-l from-black via-black/80 to-transparent z-10 pointer-events-none"></div>
-
-      {/* Custom cursor that follows mouse */}
-      {isHovered && (
-        <motion.div 
-          className="absolute backdrop-blur-md bg-white/20 border border-white/30 rounded-full px-4 py-2 text-white font-medium shadow-lg flex items-center gap-2 z-20 pointer-events-none"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ 
-            opacity: 1, 
-            scale: 1,
-            x: mousePosition.x - 70, // Center the button on cursor
-            y: mousePosition.y - 20
-          }}
-          transition={{ 
-            duration: 0.1,
-            type: "spring",
-            stiffness: 800,
-            damping: 30
-          }}
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-7xl mx-auto">
+      {projects.map((project) => (
+        <m.div
+          key={project.id}
+          className="bg-gray-800/50 backdrop-blur-sm rounded-xl overflow-hidden shadow-xl hover:shadow-blue-500/20 transition-all duration-300"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: project.id * 0.1 }}
+          viewport={{ once: true }}
+          whileHover={{ y: -10 }}
         >
-          <span>View Project</span>
-          <ArrowUpRight size={16} className="text-white" />
-        </motion.div>
-      )}
-
-      <motion.div
-        className="flex gap-4 md:gap-6 lg:gap-8"
-        animate={{
-          x: [0, -100 * data.length * 3], // Move by the width of more original items for smoother loop
-        }}
-        transition={{
-          x: {
-            repeat: Infinity,
-            repeatType: "mirror", // Using mirror instead of loop to prevent glitches
-            duration: 60, // Even slower for smoother animation
-            ease: "linear",
-          },
-        }}
-        style={{
-          width: `calc(100% * ${duplicatedData.length / 2})`, // Make width responsive
-        }}
-      >
-        {duplicatedData.map((item, index) => (
-          <motion.div
-            key={`${item.id}-${index}`}
-            className="relative w-64 sm:w-72 md:w-80 h-48 sm:h-52 md:h-60 flex-shrink-0 overflow-hidden rounded-lg shadow-lg"
-            whileHover={{
-              scale: 1.05,
-              y: -10,
-            }}
-            transition={{
-              type: "spring",
-              stiffness: 300,
-              damping: 20,
-            }}
-          >
-            <div className="relative w-full h-full">
-              <Image
-                src={item.url}
-                fill 
-                style={{ objectFit: "cover" }}
-                alt={`Portfolio item ${item.id}`}
-                className="rounded-lg"
-              />
+          <div className="relative h-48 overflow-hidden">
+            <img 
+              src={project.image} 
+              alt={project.title} 
+              className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+            />
+          </div>
+          <div className="p-6">
+            <h3 className="text-xl font-bold mb-2 text-white">{project.title}</h3>
+            <p className="text-gray-300 mb-4">{project.description}</p>
+            <div className="flex flex-wrap gap-2">
+              {project.tags.map((tag, index) => (
+                <span 
+                  key={index} 
+                  className="text-xs bg-blue-600/30 text-blue-200 px-2 py-1 rounded-full"
+                >
+                  {tag}
+                </span>
+              ))}
             </div>
-          </motion.div>
-        ))}
-      </motion.div>
+          </div>
+        </m.div>
+      ))}
     </div>
   );
 };

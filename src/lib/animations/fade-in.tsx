@@ -53,6 +53,7 @@ export default function FadeIn({
       initial="hidden"
       whileInView="visible"
       viewport={{ once }}
+      //@ts-ignore
       variants={customVariants}
     >
       {children}

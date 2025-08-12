@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Work_Sans } from "next/font/google";
 import "./globals.css";
 import ReactQueryContext from "@/lib/context/react-query-context";
 import Header from "@/components/header";
+import Footer from "@/components/footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,7 +38,8 @@ export default function RootLayout({
         <ReactQueryContext>
           <Header/>
           {children}
-          </ReactQueryContext>
+          <Footer/>
+        </ReactQueryContext>
       </body>
     </html>
   );
