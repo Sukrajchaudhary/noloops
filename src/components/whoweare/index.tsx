@@ -1,25 +1,38 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Button } from "../ui/button";
 import { motion } from "framer-motion";
-import { getStaggeredFadeIn, getStaggeredFadeInUp } from "@/lib/animations";
 
 const WhoWeAre = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [revealedWords, setRevealedWords] = useState(0);
+  const sectionRef = useRef(null); // Ref to track the section visibility
   
   const text = "We are Noloops — helping businesses like yours innovate outside the cycle with cutting-edge web, app, design, and marketing solutions.";
   const words = text.split(" ");
   
+  // IntersectionObserver to detect when the component comes into view
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, 600);
-    
-    return () => clearTimeout(timer);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect(); // Stop observing once it's visible
+        }
+      },
+      { threshold: 0.5 } // Trigger when 50% of the element is visible
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) observer.unobserve(sectionRef.current);
+    };
   }, []);
-  
+
   useEffect(() => {
     if (isVisible) {
       let currentIndex = 0;
@@ -29,7 +42,6 @@ const WhoWeAre = () => {
           setRevealedWords(currentIndex + 1);
           currentIndex++;
           
-          // Variable timing based on position
           let delay;
           if (currentIndex < 5) {
             delay = 100;
@@ -43,13 +55,15 @@ const WhoWeAre = () => {
         }
       };
       
-      // Start the reveal process
       setTimeout(revealNextWord, 50);
     }
   }, [isVisible, words.length]);
   
   return (
-    <div className="flex flex-col justify-center items-center py-16 px-4 text-white">
+    <div 
+      ref={sectionRef} 
+      className="flex flex-col justify-center items-center py-16 px-4 text-white"
+    >
       <div className="w-full flex justify-center mb-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -72,7 +86,7 @@ const WhoWeAre = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className="text-3xl font-semibold leading-relaxed text-center max-w-[45vw] mx-auto text-white"
+        className="text-3xl font-semibold leading-relaxed text-center md:max-w-[45vw] max-w-full mx-auto text-white"
       >
         {words.map((word, index) => (
           <span

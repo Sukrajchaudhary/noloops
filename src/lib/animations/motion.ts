@@ -1,4 +1,5 @@
 // // Framer motion animation variants
+import { Variants } from "framer-motion";
 
 // // Fade in animation
 // export const fadeIn = {
@@ -190,67 +191,83 @@ export const fadeInDown = {
     ease: [0.25, 0.1, 0.25, 1.0]
   }
 };
-
+  
 // Button hover animation - optimized for performance
-export const buttonHover = {
+export const buttonHover: Variants = {
   whileHover: { 
     scale: 1.05,
     transition: { 
       duration: 0.2, 
-      ease: [0.25, 0.1, 0.25, 1.0]
+      ease: [0.25, 0.1, 0.25, 1.0] as any
     }
   },
   whileTap: { 
     scale: 0.98,
     transition: { 
       duration: 0.1, 
-      ease: [0.25, 0.1, 0.25, 1.0]
+      ease: [0.25, 0.1, 0.25, 1.0] as any
     }
   }
 };
 
 // Smooth arrow animation
-export const arrowAnimation = {
+export const arrowAnimation: Variants = {
   animate: { 
-    y: [0, -8, 0]
-  },
-  transition: { 
-    repeat: Infinity, 
-    duration: 2,
-    ease: "easeInOut"
+    y: [0, -8, 0],
+    transition: { 
+      repeat: Infinity, 
+      duration: 2,
+      ease: "easeInOut"
+    }
   }
 };
 
 // Staggered animations with custom delays
-export const getStaggeredFadeIn = (delay: number = 0) => ({
+export const getStaggeredFadeIn = (delay: number = 0): Variants => ({
   initial: { opacity: 0 },
-  animate: { opacity: 1 },
-  transition: { 
-    delay, 
-    duration: 0.6,
-    ease: [0.25, 0.1, 0.25, 1.0]
+  animate: { 
+    opacity: 1,
+    transition: { 
+      delay: delay,
+      duration: 0.6,
+      ease: [0.25, 0.1, 0.25, 1.0] as any
+    }
   }
 });
 
-export const getStaggeredFadeInUp = (delay: number = 0) => ({
+export const getStaggeredFadeInUp = (delay: number = 0): Variants => ({
   initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-  transition: { 
-    delay, 
-    duration: 0.6,
-    ease: [0.25, 0.1, 0.25, 1.0]
+  animate: { 
+    opacity: 1, 
+    y: 0,
+    transition: { 
+      delay, 
+      duration: 0.6,
+      ease: [0.25, 0.1, 0.25, 1.0] as any
+    }
   }
 });
 
 // Slider animation - optimized to prevent glitches
-export const sliderAnimation = {
+export const sliderAnimation: Variants = {
   initial: { x: -50, opacity: 0 },
-  animate: { x: 0, opacity: 1 },
-  exit: { x: 50, opacity: 0 },
-  transition: { 
-    type: "tween", 
-    duration: 0.5,
-    ease: [0.25, 0.1, 0.25, 1.0]
+  animate: { 
+    x: 0, 
+    opacity: 1,
+    transition: { 
+      type: "tween", 
+      duration: 0.5,
+      ease: [0.25, 0.1, 0.25, 1.0] as any
+    }
+  },
+  exit: { 
+    x: 50, 
+    opacity: 0,
+    transition: { 
+      type: "tween", 
+      duration: 0.5,
+      ease: [0.25, 0.1, 0.25, 1.0] as any
+    }
   }
 };
 
@@ -286,35 +303,44 @@ export const continuousBounce = {
 };
 
 // Directional animations for cards - optimized
-export const fadeInLeft = {
+export const fadeInLeft: Variants = {
   initial: { opacity: 0, x: -40 },
-  animate: { opacity: 1, x: 0 },
-  transition: { 
-    duration: 0.6, 
-    ease: [0.25, 0.1, 0.25, 1.0]
+  animate: { 
+    opacity: 1, 
+    x: 0,
+    transition: { 
+      duration: 0.6, 
+      ease: [0.25, 0.1, 0.25, 1.0] as any
+    }
   }
 };
 
-export const fadeInRight = {
+export const fadeInRight: Variants = {
   initial: { opacity: 0, x: 40 },
-  animate: { opacity: 1, x: 0 },
-  transition: { 
-    duration: 0.6, 
-    ease: [0.25, 0.1, 0.25, 1.0]
+  animate: { 
+    opacity: 1, 
+    x: 0,
+    transition: { 
+      duration: 0.6, 
+      ease: [0.25, 0.1, 0.25, 1.0] as any
+    }
   }
 };
 
-export const fadeInBottom = {
+export const fadeInBottom: Variants = {
   initial: { opacity: 0, y: 40 },
-  animate: { opacity: 1, y: 0 },
-  transition: { 
-    duration: 0.6, 
-    ease: [0.25, 0.1, 0.25, 1.0]
+  animate: { 
+    opacity: 1, 
+    y: 0,
+    transition: { 
+      duration: 0.6, 
+      ease: [0.25, 0.1, 0.25, 1.0] as any
+    }
   }
 };
 
 // Get directional animations with custom delay - improved
-export const getDirectionalAnimation = (direction: 'left' | 'right' | 'bottom', delay: number = 0) => {
+export const getDirectionalAnimation = (direction: 'left' | 'right' | 'bottom', delay: number = 0): Variants => {
   const animations = {
     left: { opacity: 0, x: -40 },
     right: { opacity: 0, x: 40 },
@@ -323,11 +349,15 @@ export const getDirectionalAnimation = (direction: 'left' | 'right' | 'bottom', 
     
   return {
     initial: animations[direction],
-    animate: { opacity: 1, x: 0, y: 0 },
-    transition: {
-      delay,
-      duration: 0.6,
-      ease: [0.25, 0.1, 0.25, 1.0]
+    animate: { 
+      opacity: 1, 
+      x: 0, 
+      y: 0,
+      transition: {
+        delay,
+        duration: 0.6,
+        ease: [0.25, 0.1, 0.25, 1.0] as any
+      }
     }
   };
 };
@@ -345,46 +375,48 @@ export const staggerContainer = (staggerChildren: number = 0.1, delayChildren: n
 });
 
 // Scale in animation with custom delay - smooth scaling
-export const getScaleIn = (delay: number = 0) => ({
+export const getScaleIn = (delay: number = 0): Variants => ({
   initial: { opacity: 0, scale: 0.95 },
-  animate: { opacity: 1, scale: 1 },
-  transition: { 
-    delay, 
-    duration: 0.6, 
-    ease: [0.25, 0.1, 0.25, 1.0]
+  animate: { 
+    opacity: 1, 
+    scale: 1,
+    transition: { 
+      delay, 
+      duration: 0.6, 
+      ease: [0.25, 0.1, 0.25, 1.0] as any
+    }
   }
 });
 
 // New smooth animations to prevent glitches
 
 // Smooth text reveal animation
-export const textReveal = {
+export const textReveal: Variants = {
   initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-  transition: {
-    duration: 0.6,
-    ease: [0.25, 0.1, 0.25, 1.0]
+  animate: { 
+    opacity: 1, 
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: [0.25, 0.1, 0.25, 1.0] as any
+    }
   }
 };
 
 // Smooth card hover animation
-export const cardHover = {
+export const cardHover: Variants = {
   whileHover: { 
     y: -5,
     scale: 1.02,
     transition: { 
       duration: 0.3, 
-      ease: [0.25, 0.1, 0.25, 1.0]
+      ease: [0.25, 0.1, 0.25, 1.0] as any
     }
-  },
-  transition: {
-    duration: 0.3,
-    ease: [0.25, 0.1, 0.25, 1.0]
   }
 };
 
 // Smooth rotation animation
-export const smoothRotate = {
+export const smoothRotate: Variants = {
   animate: {
     rotate: [0, 360],
     transition: {
@@ -396,14 +428,14 @@ export const smoothRotate = {
 };
 
 // Page transition animations
-export const pageTransition = {
+export const pageTransition: Variants = {
   initial: { opacity: 0, y: 20 },
   animate: { 
     opacity: 1, 
     y: 0,
     transition: {
       duration: 0.6,
-      ease: [0.25, 0.1, 0.25, 1.0]
+      ease: [0.25, 0.1, 0.25, 1.0] as any
     }
   },
   exit: { 
@@ -411,13 +443,13 @@ export const pageTransition = {
     y: -20,
     transition: {
       duration: 0.4,
-      ease: [0.25, 0.1, 0.25, 1.0]
+      ease: [0.25, 0.1, 0.25, 1.0] as any
     }
   }
 };
 
 // Smooth pulse animation
-export const smoothPulse = {
+export const smoothPulse: Variants = {
   animate: {
     scale: [1, 1.05, 1],
     transition: {
