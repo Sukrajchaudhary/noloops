@@ -88,7 +88,7 @@ const Footer = () => {
   return (
     <div 
       ref={sectionRef}
-      className="relative  text-white py-20 flex items-center justify-between px-6 md:px-40 overflow-hidden"
+      className="relative bg-[#0D0D0D] text-white py-20 px-6 md:px-40 overflow-hidden"
     >
       {/* Narrow Diagonal Gradient Beam */}
       <div
@@ -98,125 +98,248 @@ const Footer = () => {
           filter: "blur(60px)",
         }}
       />
-      
-      {/* Left Side */}
-      <motion.div 
-        className="relative z-10 max-w-sm"
-        variants={contentVariants}
-        initial="hidden"
-        animate={contentControls}
-        style={{ transformStyle: "preserve-3d", perspective: "1000px" }}
-      >
-        {/* Logo */}
+
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between">
+        {/* Mobile Layout */}
+        <div className="block md:hidden w-full">
+          {/* Logo Section */}
+          <motion.div 
+            className="relative z-10 mb-8"
+            variants={contentVariants}
+            initial="hidden"
+            animate={contentControls}
+            style={{ transformStyle: "preserve-3d", perspective: "1000px" }}
+          >
+            <motion.div 
+              className="flex items-center mb-6"
+              variants={logoVariants}
+              initial="hidden"
+              animate={logoControls}
+            >
+              <div className="w-8 h-8 bg-white rounded-sm flex items-center justify-center mr-2">
+                <span className="text-black font-bold text-lg">N</span>
+              </div>
+              <span className="text-xl font-bold">NOLOOPS</span>
+            </motion.div>
+            
+            <p className="text-sm text-zinc-300 leading-relaxed mb-6">
+              Your trusted partner in digital innovation — building smarter websites, apps,
+              designs, and marketing strategies for smarter businesses..
+            </p>
+            
+            {/* Social Icons */}
+            <div className="flex gap-3 mb-8">
+              {socialIcons.map((social, index) => {
+                const IconComponent = social.icon;
+                return (
+                  <motion.div
+                    key={social.label}
+                    custom={index}
+                    variants={socialIconVariants}
+                    initial="hidden"
+                    animate={contentControls}
+                    className="bg-zinc-800 hover:bg-zinc-700 p-2 rounded-lg cursor-pointer transition-colors group"
+                    whileHover={{ 
+                      scale: 1.1, 
+                      transition: { type: "spring", stiffness: 300, damping: 20 } 
+                    }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <IconComponent className="w-4 h-4 group-hover:text-purple-400 transition-colors" />
+                  </motion.div>
+                );
+              })}
+            </div>
+          </motion.div>
+
+          {/* Navigation Links */}
+          <motion.div 
+            className="relative z-10 grid grid-cols-2 gap-8"
+            variants={linksVariants}
+            initial="hidden"
+            animate={linksControls}
+            style={{ transformStyle: "preserve-3d", perspective: "1000px" }}
+          >
+            <div>
+              <h4 className="font-semibold mb-4 text-white">Sections</h4>
+              <ul className="space-y-2 text-zinc-300 text-sm">
+                {["Process", "Services", "Benefits", "Plans", "Contact"].map((item, index) => (
+                  <motion.li
+                    key={item}
+                    className="hover:text-white cursor-pointer transition-colors"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ 
+                      opacity: 1, 
+                      x: 0,
+                      transition: { 
+                        delay: 0.8 + index * 0.1,
+                        type: "spring",
+                        stiffness: 200,
+                        damping: 20
+                      }
+                    }}
+                    whileHover={{ 
+                      x: 5, 
+                      color: "#ffffff",
+                      transition: { type: "spring", stiffness: 300, damping: 20 } 
+                    }}
+                  >
+                    {item}
+                  </motion.li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4 text-white">Pages</h4>
+              <ul className="space-y-2 text-zinc-300 text-sm">
+                {["Home", "Coming soon", "404"].map((item, index) => (
+                  <motion.li
+                    key={item}
+                    className="hover:text-white cursor-pointer transition-colors"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ 
+                      opacity: 1, 
+                      x: 0,
+                      transition: { 
+                        delay: 0.8 + index * 0.1,
+                        type: "spring",
+                        stiffness: 200,
+                        damping: 20
+                      }
+                    }}
+                    whileHover={{ 
+                      x: 5, 
+                      color: "#ffffff",
+                      transition: { type: "spring", stiffness: 300, damping: 20 } 
+                    }}
+                  >
+                    {item}
+                  </motion.li>
+                ))}
+              </ul>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Desktop Layout */}
         <motion.div 
-          className="flex items-center mb-6"
-          variants={logoVariants}
+          className="hidden md:block relative z-10 max-w-sm"
+          variants={contentVariants}
           initial="hidden"
-          animate={logoControls}
+          animate={contentControls}
+          style={{ transformStyle: "preserve-3d", perspective: "1000px" }}
         >
-          <div className="w-8 h-8 bg-white rounded-sm flex items-center justify-center mr-2">
-            <span className="text-black font-bold text-lg">N</span>
+          {/* Logo */}
+          <motion.div 
+            className="flex items-center mb-6"
+            variants={logoVariants}
+            initial="hidden"
+            animate={logoControls}
+          >
+            <div className="w-8 h-8 bg-white rounded-sm flex items-center justify-center mr-2">
+              <span className="text-black font-bold text-lg">N</span>
+            </div>
+            <span className="text-xl font-bold">NOLOOPS</span>
+          </motion.div>
+          
+          <p className="text-sm text-zinc-300 leading-relaxed mb-6">
+            Your trusted partner in digital innovation — building smarter websites, apps,
+            designs, and marketing strategies for smarter businesses..
+          </p>
+          
+          {/* Social Icons */}
+          <div className="flex gap-3">
+            {socialIcons.map((social, index) => {
+              const IconComponent = social.icon;
+              return (
+                <motion.div
+                  key={social.label}
+                  custom={index}
+                  variants={socialIconVariants}
+                  initial="hidden"
+                  animate={contentControls}
+                  className="bg-zinc-800 hover:bg-zinc-700 p-2 rounded-lg cursor-pointer transition-colors group"
+                  whileHover={{ 
+                    scale: 1.1, 
+                    transition: { type: "spring", stiffness: 300, damping: 20 } 
+                  }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <IconComponent className="w-4 h-4 group-hover:text-purple-400 transition-colors" />
+                </motion.div>
+              );
+            })}
           </div>
-          <span className="text-xl font-bold">NOLOOPS</span>
         </motion.div>
         
-        <p className="text-sm text-zinc-300 leading-relaxed mb-6">
-          Your trusted partner in digital innovation — building smarter websites, apps,
-          designs, and marketing strategies for smarter businesses..
-        </p>
-        
-        {/* Social Icons */}
-        <div className="flex gap-3">
-          {socialIcons.map((social, index) => {
-            const IconComponent = social.icon;
-            return (
-              <motion.div
-                key={social.label}
-                custom={index}
-                variants={socialIconVariants}
-                initial="hidden"
-                animate={contentControls}
-                className="bg-zinc-800 hover:bg-zinc-700 p-2 rounded-lg cursor-pointer transition-colors group"
-                whileHover={{ 
-                  scale: 1.1, 
-                  transition: { type: "spring", stiffness: 300, damping: 20 } 
-                }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <IconComponent className="w-4 h-4 group-hover:text-purple-400 transition-colors" />
-              </motion.div>
-            );
-          })}
-        </div>
-      </motion.div>
-      
-      {/* Right Side */}
-      <motion.div 
-        className="relative z-10 flex gap-16"
-        variants={linksVariants}
-        initial="hidden"
-        animate={linksControls}
-        style={{ transformStyle: "preserve-3d", perspective: "1000px" }}
-      >
-        <div>
-          <h4 className="font-semibold mb-4 text-white">Sections</h4>
-          <ul className="space-y-2 text-zinc-300 text-sm">
-            {["Process", "Services", "Benefits", "Plans", "Contact"].map((item, index) => (
-              <motion.li
-                key={item}
-                className="hover:text-white cursor-pointer transition-colors"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ 
-                  opacity: 1, 
-                  x: 0,
-                  transition: { 
-                    delay: 0.8 + index * 0.1,
-                    type: "spring",
-                    stiffness: 200,
-                    damping: 20
-                  }
-                }}
-                whileHover={{ 
-                  x: 5, 
-                  color: "#ffffff",
-                  transition: { type: "spring", stiffness: 300, damping: 20 } 
-                }}
-              >
-                {item}
-              </motion.li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <h4 className="font-semibold mb-4 text-white">Pages</h4>
-          <ul className="space-y-2 text-zinc-300 text-sm">
-            {["Home", "Coming soon", "404"].map((item, index) => (
-              <motion.li
-                key={item}
-                className="hover:text-white cursor-pointer transition-colors"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ 
-                  opacity: 1, 
-                  x: 0,
-                  transition: { 
-                    delay: 0.8 + index * 0.1,
-                    type: "spring",
-                    stiffness: 200,
-                    damping: 20
-                  }
-                }}
-                whileHover={{ 
-                  x: 5, 
-                  color: "#ffffff",
-                  transition: { type: "spring", stiffness: 300, damping: 20 } 
-                }}
-              >
-                {item}
-              </motion.li>
-            ))}
-          </ul>
-        </div>
-      </motion.div>
+        {/* Right Side - Desktop */}
+        <motion.div 
+          className="hidden md:flex relative z-10 gap-16"
+          variants={linksVariants}
+          initial="hidden"
+          animate={linksControls}
+          style={{ transformStyle: "preserve-3d", perspective: "1000px" }}
+        >
+          <div>
+            <h4 className="font-semibold mb-4 text-white">Sections</h4>
+            <ul className="space-y-2 text-zinc-300 text-sm">
+              {["Process", "Services", "Benefits", "Plans", "Contact"].map((item, index) => (
+                <motion.li
+                  key={item}
+                  className="hover:text-white cursor-pointer transition-colors"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ 
+                    opacity: 1, 
+                    x: 0,
+                    transition: { 
+                      delay: 0.8 + index * 0.1,
+                      type: "spring",
+                      stiffness: 200,
+                      damping: 20
+                    }
+                  }}
+                  whileHover={{ 
+                    x: 5, 
+                    color: "#ffffff",
+                    transition: { type: "spring", stiffness: 300, damping: 20 } 
+                  }}
+                >
+                  {item}
+                </motion.li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h4 className="font-semibold mb-4 text-white">Pages</h4>
+            <ul className="space-y-2 text-zinc-300 text-sm">
+              {["Home", "Coming soon", "404"].map((item, index) => (
+                <motion.li
+                  key={item}
+                  className="hover:text-white cursor-pointer transition-colors"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ 
+                    opacity: 1, 
+                    x: 0,
+                    transition: { 
+                      delay: 0.8 + index * 0.1,
+                      type: "spring",
+                      stiffness: 200,
+                      damping: 20
+                    }
+                  }}
+                  whileHover={{ 
+                    x: 5, 
+                    color: "#ffffff",
+                    transition: { type: "spring", stiffness: 300, damping: 20 } 
+                  }}
+                >
+                  {item}
+                </motion.li>
+              ))}
+            </ul>
+          </div>
+        </motion.div>
+      </div>
     </div>
   );
 };
